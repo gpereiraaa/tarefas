@@ -11,13 +11,22 @@ import br.dev.gustavo.tarefas.dao.FuncionarioDAO;
 import br.dev.gustavo.tarefas.model.Funcionario;
 import br.dev.gustavo.tarefas.model.Tarefa;
 import br.dev.gustavo.tarefas.ui.FuncionarioFrame;
+import br.dev.gustavo.tarefas.ui.FuncionariosListaFrame;
 
 public class Main {
 	static String caminho = "/Users/25132694/tarefasDS1TA/tarefas";
 	public static void main(String[] args) {
 		
 		
-		new FuncionarioFrame();
+		//FuncionarioDAO dao = new FuncionarioDAO(null);
+		//dao.getFuncionarios();
+		
+		
+		
+		
+		
+		
+		new FuncionariosListaFrame();
 		
 		
 //		UUID uuid = UUID.randomUUID();

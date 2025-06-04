@@ -43,12 +43,15 @@ public class Funcionario {
 	public void setSetor(String setor) {
 		this.setor = setor;
 	}
-
+	
+	
 	public String getMatricula() {
 		return matricula;
 	}
 
-	
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
 
 	public String getCargo() {
 		return cargo;
