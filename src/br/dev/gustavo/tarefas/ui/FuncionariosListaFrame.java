@@ -7,11 +7,15 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import com.sun.source.tree.ParenthesizedTree;
 
 import br.dev.gustavo.tarefas.dao.FuncionarioDAO;
 import br.dev.gustavo.tarefas.model.Funcionario;
@@ -20,6 +24,7 @@ public class FuncionariosListaFrame {
 	
 	private JLabel labelTitulo;
 	private JButton btnNovo;
+	private JButton btnSair;
 	
 	private JTable tabelaFuncionarios;
 	private DefaultTableModel modelFuncionarios;
@@ -27,15 +32,16 @@ public class FuncionariosListaFrame {
 	
 	private String[] colunas = {"CÓDIGO", "NOME DO FUNCIONÁRIO", "CARGO"};
 	
-	public FuncionariosListaFrame() {
-		criarTela();
+	public FuncionariosListaFrame(JFrame tela) {
+		criarTela(tela);
 	}
 	
 	
-	private void criarTela() {
-		JFrame tela = new JFrame("Lista de funcionários");
+	private void criarTela(JFrame parent) {
+		JDialog tela = new JDialog(parent, true);
 		tela.setSize(600, 500);
-		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		tela.setTitle("Lista de funcionários");
+		tela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tela.setResizable(false);
 		tela.setLayout(null);
 		tela.setLocationRelativeTo(null);
@@ -61,6 +67,9 @@ public class FuncionariosListaFrame {
 		btnNovo = new JButton("Novo");
 		btnNovo.setBounds(10, 410, 150, 40);
 		
+		btnSair =new JButton("Sair");
+		btnSair.setBounds(200, 410, 150, 40);
+		
 		btnNovo.addActionListener(new ActionListener() {
 			
 			@Override
@@ -70,11 +79,24 @@ public class FuncionariosListaFrame {
 			}
 		});
 		
+		btnSair.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int resposta = JOptionPane.showConfirmDialog(tela, "Sair da área de funcionários?");
+				if(resposta == 0) {
+					tela.dispose();
+				}
+				
+			}
+		});
+		
 		
 		Container painel = tela.getContentPane();
 		painel.add(labelTitulo);
 		painel.add(scroll);
 		painel.add(btnNovo);
+		painel.add(btnSair);
 		
 		
 		

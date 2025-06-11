@@ -1,6 +1,5 @@
 package br.dev.gustavo.tarefas.model;
 
-import java.util.UUID;
 
 import br.dev.gustavo.tarefas.utils.Utils;
 

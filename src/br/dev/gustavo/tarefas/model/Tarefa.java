@@ -76,6 +76,7 @@ public class Tarefa {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+	
 
 	public Funcionario getResponsavel() {
 		return responsavel;

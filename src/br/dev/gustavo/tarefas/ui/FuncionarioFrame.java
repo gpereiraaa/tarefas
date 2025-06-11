@@ -16,13 +16,13 @@ import br.dev.gustavo.tarefas.model.Funcionario;
 
 public class FuncionarioFrame {
 	
-	public FuncionarioFrame(JFrame tela) {
+	public FuncionarioFrame(JDialog tela) {
 		criarTela(tela);
 	}
 	
-	private void criarTela(JFrame parent) {
+	private void criarTela(JDialog tela2) {
 		
-		JDialog tela = new JDialog(parent, true);
+		JDialog tela = new JDialog(tela2, true);
 		tela.setSize(400, 400);
 		tela.setTitle("Cadastro de Funcionários");
 		tela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
