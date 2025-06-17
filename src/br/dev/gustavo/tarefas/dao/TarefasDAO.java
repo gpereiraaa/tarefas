@@ -20,7 +20,9 @@ public class TarefasDAO {
 	private FileReader fr;
 	private BufferedReader br;
 	
-	private String arquivo ="/Users/25132694/tarefasDS1TA/tarefas.csv";
+	private String arquivo = "C:\\Users\\guga2\\Downloads\\tarefasDS1TA\\tarefas.csv";
+	
+	//private String arquivo ="/Users/25132694/tarefasDS1TA/tarefas.csv";
 	
 	public TarefasDAO(Tarefa tarefa) {
 		this.tarefa = tarefa;
@@ -56,6 +58,7 @@ public class TarefasDAO {
 				if(linha !=null) {
 					String[] tarefasVetor = linha.split(",");
 					Tarefa tarefa = new Tarefa();
+					tarefa.setNome(tarefasVetor[3]);
 					tarefa.setDataEntrega(tarefasVetor[0]);
 					tarefa.setDataInicio(tarefasVetor[1]);
 					tarefa.setStatus(tarefasVetor[2]);
