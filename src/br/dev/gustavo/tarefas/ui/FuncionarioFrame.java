@@ -26,6 +26,7 @@ public class FuncionarioFrame {
 		tela.setSize(400, 400);
 		tela.setTitle("Cadastro de Funcionários");
 		tela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		tela.setResizable(false);		
 		tela.setLayout(null);
 		tela.setLocationRelativeTo(null);
 		

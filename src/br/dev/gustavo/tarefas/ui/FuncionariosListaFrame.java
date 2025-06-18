@@ -126,3 +126,40 @@ public class FuncionariosListaFrame {
 	
 
 }
+
+
+
+
+//String statusStr = comboStatus.getSelectedItem().toString().toUpperCase();
+//t.setStatus(Status.valueOf(statusStr));
+
+//String nomeResp = txtResponsavel.getText().trim();
+//Funcionario f = new Funcionario();
+//f.setNome(nomeResp);
+//t.setResponsavel(f);
+
+//DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//LocalDate data = LocalDate.parse(txtDataInicio.getText(), fmt);
+//t.setDataInicio(data);
+
+//t.setStatus(Status.valueOf("EM_ANDAMENTO"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

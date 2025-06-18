@@ -5,6 +5,7 @@ import java.awt.DefaultFocusTraversalPolicy;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,6 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import br.dev.gustavo.tarefas.dao.TarefasDAO;
+import br.dev.gustavo.tarefas.model.Tarefa;
 
 public class TarefasListaFrame {
 	
@@ -64,6 +68,7 @@ public class TarefasListaFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new TarefasFrame(tela);
+				carregarDados();
 				
 			}
 		});
@@ -98,4 +103,28 @@ public class TarefasListaFrame {
 		tela.setVisible(true);
 	
 	}
+	
+	private Object[][] carregarDados(){
+		TarefasDAO dao = new TarefasDAO(null);
+		List<Tarefa> tarefas = dao.getTarefas();
+		
+		Object[][] dados = new Object[tarefas.size()][6];
+		
+		
+		int i = 0;
+		for(Tarefa t : tarefas) {
+			dados[i][0]= t.getNome();
+			dados[i][1]= t.getDescricao();
+			dados[i][2]= t.getResponsavel();
+			dados[i][3]= t.getStatus();
+			dados[i][4]= t.getDataInicio();
+			dados[i][5]= t.getPrazo();
+		}
+		modelTabela.setDataVector(dados, colunas);
+		return dados;
+		
+		
+		
+	}
+	
 }

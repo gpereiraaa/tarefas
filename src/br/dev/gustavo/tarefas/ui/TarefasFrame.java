@@ -4,6 +4,9 @@ import java.awt.Container;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -19,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
 import br.dev.gustavo.tarefas.dao.FuncionarioDAO;
+import br.dev.gustavo.tarefas.dao.TarefasDAO;
 import br.dev.gustavo.tarefas.model.Funcionario;
 import br.dev.gustavo.tarefas.model.Status;
 import br.dev.gustavo.tarefas.model.Tarefa;
@@ -59,12 +63,10 @@ public class TarefasFrame {
 		labelResponsavel.setBounds(10, 165, 150, 30);
 
 		
-		JComboBox cbxFuncionarios = new JComboBox<String>(carregarMatricula());
+		JComboBox<Funcionario> cbxFuncionarios = new JComboBox<Funcionario>(carregarMatricula());
 		cbxFuncionarios.setBounds(10, 200, 260, 30);
 		
 		
-		//JTextField txtResponsavel= new JTextField();
-		//txtResponsavel.setBounds(10, 200, 260, 30);
 		
 		JLabel labelDataInicio = new JLabel("Data de início");
 		labelDataInicio.setBounds(10, 230, 150, 30);
@@ -79,6 +81,8 @@ public class TarefasFrame {
 		JTextField txtPrazo = new JTextField();
 		txtPrazo.setBounds(10, 330, 260, 30);
 		
+		
+		
 		JLabel labelDataPrevEnt = new JLabel("Data previsão de entrega");
 		labelDataPrevEnt.setBounds(10, 365, 200, 30);
 		
@@ -88,7 +92,7 @@ public class TarefasFrame {
 		JLabel labelStatus = new JLabel("Status: ");
 		labelStatus.setBounds(10, 435, 55, 30);
 		
-		JComboBox cbxStatus = new JComboBox<Enum>(Status.values());
+		JComboBox<Enum> cbxStatus = new JComboBox<Enum>(Status.values());
 		cbxStatus.setBounds(70, 435, 100, 30);
 		
 		
@@ -107,7 +111,14 @@ public class TarefasFrame {
 		JButton btnSair = new JButton("Sair");
 		btnSair.setBounds(150, 550, 135, 40);
 		
+		Date date = (Date) spinnerDataInicial.getValue();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		
+				
+				
+				
+				
+
 		
 		
 		
@@ -135,17 +146,35 @@ public class TarefasFrame {
 		painel.add(btnSair);
 		painel.add(cbxFuncionarios);
 		
+		
+		//int prazo = Integer.parseInt(txtDescricao.getText());
+		
 		btnSalvar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Tarefa t = new Tarefa();
 				t.setNome(txtNomeTarefa.getText());
-				t.setResponsavel(cbxFuncionarios.getName());
+				t.setResponsavel((Funcionario) cbxFuncionarios.getSelectedItem());
 				t.setDescricao(txtDescricao.getText());
-				t.setResponsavel(cbxFuncionarios.getToolkit());
-				t.setDataInicio(spinnerDataInicial.getToolTipText());
-				t.setStatus(cbxStatus.getText());
+				t.setStatus((Status) cbxStatus.getSelectedItem());
+				t.setDataInicio(localDate);
+				t.setPrazo(Integer.parseInt(txtPrazo.getText()));
+				
+				TarefasDAO dao = new TarefasDAO(t);
+				dao.salvar();
+				
+				JOptionPane.showMessageDialog(tela, t.getNome()+ " gravado com sucesso");
+				
+				txtNomeTarefa.setText(null);
+				txtDescricao.setText(null);
+				
+				
+				//Date date = (Date) spinnerDataInicial.getValue();
+				//LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				//t.setDataInicio(localDate); 
+
+				
 				
 			}
 		});
@@ -180,14 +209,16 @@ public class TarefasFrame {
 	}
 	
 
-	private Vector<String> carregarMatricula(){
+	private Vector<Funcionario> carregarMatricula(){
 		FuncionarioDAO dao = new FuncionarioDAO(null);
 		List<Funcionario> funcionarios = dao.getFuncionarios();
 		
-		Vector<String> matriculas = new Vector<>();
+		Vector<Funcionario> matriculas = new Vector<>();
 		
 		for (Funcionario f : funcionarios) {
-			matriculas.add("Matricula: " + f.getMatricula() + " " + "Nome: " + f.getNome());
+			matriculas.add(f);
+			//matriculas.add(f.getNome());
+			//matriculas.add("M: " + f.getMatricula() + ", " + "N: " + f.getNome());
 		}
 		return matriculas;
 	}

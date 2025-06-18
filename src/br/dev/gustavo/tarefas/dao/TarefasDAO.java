@@ -5,10 +5,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.dev.gustavo.tarefas.model.Funcionario;
+import br.dev.gustavo.tarefas.model.Status;
 import br.dev.gustavo.tarefas.model.Tarefa;
 
 public class TarefasDAO {
@@ -20,9 +23,9 @@ public class TarefasDAO {
 	private FileReader fr;
 	private BufferedReader br;
 	
-	private String arquivo = "C:\\Users\\guga2\\Downloads\\tarefasDS1TA\\tarefas.csv";
+	//private String arquivo = "C:\\Users\\guga2\\Downloads\\tarefasDS1TA\\tarefas.csv";
 	
-	//private String arquivo ="/Users/25132694/tarefasDS1TA/tarefas.csv";
+	private String arquivo ="/Users/25132694/tarefasDS1TA/tarefas.csv";
 	
 	public TarefasDAO(Tarefa tarefa) {
 		this.tarefa = tarefa;
@@ -46,7 +49,7 @@ public class TarefasDAO {
 		}
 	}
 	
-	public List<Tarefa> getTarefas(){
+	public List<Tarefa> getTarefas() {
 		
 		List<Tarefa> tarefas = new ArrayList<>();
 		
@@ -55,19 +58,37 @@ public class TarefasDAO {
 			
 			while (linha !=null) {
 				linha = br.readLine();
+				String[] tarefasVetor = linha.split(",");
 				if(linha !=null) {
-					String[] tarefasVetor = linha.split(",");
+					
 					Tarefa tarefa = new Tarefa();
-					tarefa.setNome(tarefasVetor[3]);
-					tarefa.setDataEntrega(tarefasVetor[0]);
-					tarefa.setDataInicio(tarefasVetor[1]);
-					tarefa.setStatus(tarefasVetor[2]);
-				}
-				return tarefas;
+					tarefa.setNome(tarefasVetor[0]);
+					String strStatus = tarefasVetor[1].trim().toUpperCase();
+					tarefa.setStatus(Status.valueOf(strStatus));
+					//tarefa.setStatus(tarefasVetor[1]);
+					tarefa.setDescricao(tarefasVetor[2]);
+					
+					Funcionario f = new Funcionario();
+					f.setNome(tarefasVetor[3].trim());
+					tarefa.setResponsavel(f);
+					
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+					LocalDate dataInicio = LocalDate.parse(tarefasVetor[4].trim(), formatter);
+					tarefa.setDataInicio(dataInicio);
+					
+					//tarefa.setDataInicio(tarefasVetor[4]);
+					int prazo = Integer.parseInt(tarefasVetor[5].trim());
+					tarefa.setPrazo(prazo);
+					//tarefa.setPrazo(tarefasVetor[5]);
+					tarefas.add(tarefa);
+				}	
 			}
+			return tarefas;
 			
 		} catch (Exception e) {
-			return null;
+			e.printStackTrace();
+			return new ArrayList<>();
+			//return null;
 		}
 	}
 }
