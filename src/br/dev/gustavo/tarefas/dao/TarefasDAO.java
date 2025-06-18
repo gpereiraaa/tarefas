@@ -63,32 +63,18 @@ public class TarefasDAO {
 					
 					Tarefa tarefa = new Tarefa();
 					tarefa.setNome(tarefasVetor[0]);
-					String strStatus = tarefasVetor[1].trim().toUpperCase();
-					tarefa.setStatus(Status.valueOf(strStatus));
-					//tarefa.setStatus(tarefasVetor[1]);
+					tarefa.setStatus(tarefasVetor[1]);
 					tarefa.setDescricao(tarefasVetor[2]);
-					
-					Funcionario f = new Funcionario();
-					f.setNome(tarefasVetor[3].trim());
-					tarefa.setResponsavel(f);
-					
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-					LocalDate dataInicio = LocalDate.parse(tarefasVetor[4].trim(), formatter);
-					tarefa.setDataInicio(dataInicio);
-					
-					//tarefa.setDataInicio(tarefasVetor[4]);
-					int prazo = Integer.parseInt(tarefasVetor[5].trim());
-					tarefa.setPrazo(prazo);
-					//tarefa.setPrazo(tarefasVetor[5]);
+					tarefa.setResponsavel(tarefasVetor[3]);
+					tarefa.setDataInicio(tarefasVetor[4]);
+					tarefa.setPrazo(tarefasVetor[5]);
 					tarefas.add(tarefa);
 				}	
 			}
 			return tarefas;
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			return new ArrayList<>();
-			//return null;
+			return null;
 		}
 	}
 }

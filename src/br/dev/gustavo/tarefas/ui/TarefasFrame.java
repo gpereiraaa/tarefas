@@ -147,7 +147,6 @@ public class TarefasFrame {
 		painel.add(cbxFuncionarios);
 		
 		
-		//int prazo = Integer.parseInt(txtDescricao.getText());
 		
 		btnSalvar.addActionListener(new ActionListener() {
 			
@@ -169,11 +168,6 @@ public class TarefasFrame {
 				txtNomeTarefa.setText(null);
 				txtDescricao.setText(null);
 				
-				
-				//Date date = (Date) spinnerDataInicial.getValue();
-				//LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				//t.setDataInicio(localDate); 
-
 				
 				
 			}
@@ -217,8 +211,6 @@ public class TarefasFrame {
 		
 		for (Funcionario f : funcionarios) {
 			matriculas.add(f);
-			//matriculas.add(f.getNome());
-			//matriculas.add("M: " + f.getMatricula() + ", " + "N: " + f.getNome());
 		}
 		return matriculas;
 	}
